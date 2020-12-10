@@ -1,27 +1,38 @@
 const express = require('express');
+const db = require('./postDb')
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  // do your magic!
+router.get('/', async (request, response) => {
+    return response.status(200).json({"message": "hello world"})
 });
 
-router.get('/:id', (req, res) => {
-  // do your magic!
+router.get('/:id', validatePostId(), async (request, response) => {
+    return response.status(200).json({"message": "hello world"})
 });
 
-router.delete('/:id', (req, res) => {
-  // do your magic!
+router.delete('/:id', validatePostId(), async (request, response) => {
+    return response.status(200).json({"message": "hello world"})
 });
 
-router.put('/:id', (req, res) => {
-  // do your magic!
+router.put('/:id', validatePostId(), async (request, response) => {
+    return response.status(200).json({"message": "hello world"})
 });
 
 // custom middleware
 
-function validatePostId(req, res, next) {
-  // do your magic!
+function validatePostId() {
+    return async (request, response, next) => {
+        let id = request.params.id
+        let post = await db.getById(id)
+
+        if (post) {
+            request.user = post
+            next()
+        } else {
+            response.status(400).json({"message": "invalid post id"})
+        }
+    }
 }
 
 module.exports = router;

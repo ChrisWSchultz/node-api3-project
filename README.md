@@ -34,7 +34,6 @@ Follow these steps to set up and work on your project:
   - if the `id` parameter does not match any user id in the database, respond with status `400` and `{ message: "invalid user id" }`
 
 - `validateUser()`
-
   - `validateUser` validates the `body` on a request to create a new user
   - if the request `body` is missing, respond with status `400` and `{ message: "missing user data" }`
   - if the request `body` lacks the required `name` field, respond with status `400` and `{ message: "missing required name field" }`
